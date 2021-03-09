@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+받았다!!
+메시지 : {{ message }}
+
+<a href="{% url 'throw' %}">던지러가기</a>
+{% endblock content %}

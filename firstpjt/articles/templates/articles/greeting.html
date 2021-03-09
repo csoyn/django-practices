@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>안녕하세요!{{ name }} 님</p>
+
+<p> &#123; &#123; Escape 문자! &#125; &#125;</p>
+<p>음식 : {{ foods.1 }}</p>
+
+<a href="{% url 'articles:index' %}">메인 페이지로 가기</a>
+<a href="{% url 'articles:dinner' %}">메뉴 추천으로 이동하기</a>
+<!-- <a href="/greeting/">현재 페이지로 이동하기</a> -->
+<!-- <a href="greeting/">현재 페이지로 이동하기</a> -->
+{% endblock %}

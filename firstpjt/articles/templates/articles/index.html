@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>INDEX</h1>
+
+<!-- <a href="/greeting/">인사</a> -->
+<a href="{% url 'articles:greeting' %}">인사</a>
+<!-- <a href="/dinner/">저녁메뉴 추천</a> -->
+<a href="{% url 'articles:dinner' %}">저녁메뉴 추천</a>
+{% endblock %}
