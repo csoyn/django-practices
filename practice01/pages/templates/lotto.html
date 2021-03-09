@@ -2,6 +2,7 @@
 
 <hr>
 
+{% comment %} 
 <p>이번 회차 당첨 번호: {{ numbers }} + {{ bonus_number }}</p>
 
 <ul>
@@ -13,5 +14,12 @@
     {% endif %}
   {% endfor %}
 </ul>
+{% endcomment %}
 
+<p>이번 회차 당첨 번호: {{ winnings }} + {{ bonus_number }}</p>
 
+<ul>
+  {% for key, value  in winning_sup.items %}
+    <li>{{ key }} : {{ value }}번</li>
+  {% endfor %}
+</ul>
