@@ -1,0 +1,17 @@
+<h1>로또 당첨 횟수를 알아보자🏆</h1>
+
+<hr>
+
+<p>이번 회차 당첨 번호: {{ numbers }} + {{ bonus_number }}</p>
+
+<ul>
+  {% for result_count in result %}
+    {% if forloop.last %}
+      <li>꽝 : {{ result_count }}번</li>
+    {% else %}
+      <li>{{ forloop.counter }}등 : {{ result_count }}번</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+

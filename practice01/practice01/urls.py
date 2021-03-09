@@ -23,4 +23,5 @@ urlpatterns = [
     path('fakenaver/', include('fakenaver.urls')),
     path('variable/', include('variable.urls')),
     path('dtlpractice/', include('dtlpractice.urls')),
+    path('pages/', include('pages.urls')),
 ]

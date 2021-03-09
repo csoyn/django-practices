@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'fakenaver',
     'variable',
     'dtlpractice',
+    'pages',
 
     'django.contrib.admin',
     'django.contrib.auth',
