@@ -110,10 +110,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'ko-kr'
+# 1-1 한국어! => ko-kr
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Seoul'
 
+# 1-2 국제화 번역 기능 ON
 USE_I18N = True
 
 USE_L10N = True
