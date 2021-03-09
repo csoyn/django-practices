@@ -1,0 +1,84 @@
+<h3>1. for (forloop)</h3>
+{% for food in foods %}
+  <p>
+    {% if forloop.first %}
+      <span>🎊</span>
+    {% elif forloop.last %}
+      <span>✨</span>
+    {% endif %}
+  
+    {{ forloop.counter }}번 음식은 {{ food }}입니다.
+  </p>
+{% endfor %}
+
+<h4>for + if elif else</h4>
+{% for fruit in fruits %}
+  {% if fruit == 'apple' %}
+    <p>🍎</p>
+  {% elif fruit == 'banana' %}
+    <p>🍌</p>
+  {% else %}
+    <p>{{ fruit }}</p>
+  {% endif %}
+{% endfor %}
+
+<h4>empty for</h4>
+{% for _ in empty %}
+  <p>반복문이 안 돌아감!</p>
+{% empty %}
+  <p>반복문이 비어있습니다!</p>
+{% endfor %}
+
+
+<hr>
+
+<h3>2. if</h3>
+{% if '스팸' in foods %}
+  <p>와 스팸 밥도둑!</p>
+{% endif %}
+
+{% if '자장면' not in foods %}
+  <p>이걸 안 먹네</p>
+{% endif %}
+
+
+<h3>3. for + if + filter</h3>
+{% for food in foods %}
+  {% if food|length >= 4 %}
+    <p>{{ food }}는 4글자 이상입니다.</p>
+  {% else %}
+    <p>{{ food }}은 {{ food|length }}글자입니다.</p>
+  {% endif %}
+{% endfor %}
+
+<h3>4. Lorem</h3>
+<ol>
+  <li>{% lorem %}</li>
+  <li>{% lorem 3 w %}</li>
+  <li>{% lorem 3 w random %}</li>
+  <li>{% lorem 2 p %}</li>
+</ol>
+
+<h3>5. 글자 필터</h3>
+<p>{{ 'ABCDEF'|lower }}</p>
+<p>{{ 'ABC DEF GHI'|title }}</p>
+<p>{{ 'ABC DEF GHI'|random }}</p>
+<p>{{ foods|random }}</p>
+<p>{{ foods|first }}</p>
+<p>{{ foods|first|first }}</p>
+
+<h3>6. 연산</h3>
+<p>{{ 100|add:6 }}</p>
+
+<h3>7. 날짜 표현</h3>
+<p>{% now "DATETIME_FORMAT" %}</p>
+<p>{% now "SHORT_DATETIME_FORMAT" %}</p>
+<p>{% now "DATE_FORMAT" %}</p>
+<p>{% now "SHORT_DATE_FORMAT" %}</p>
+{% comment %} 
+settings.py 의 TIME_ZONE 을 변경하는 방식으로 풀이
+TIME_ZONE = 'Asia/Seoul'
+
+>>> 2021년 03월 09일 Tue
+{% endcomment %}
+<p>{% now "Y년 m월 d일" %} {% now "D" %}</p>
