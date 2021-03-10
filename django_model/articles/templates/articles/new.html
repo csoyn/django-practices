@@ -1,0 +1,7 @@
+<h2>New Article</h2>
+
+<form action="{% url 'articles:create' %}" method="GET">
+  <input type="text" name="title">
+  <textarea name="content" id="content" cols="30" rows="10"></textarea>
+  <button>작성</button>
+</form>
