@@ -58,3 +58,49 @@ article.save() # 까먹지말자!
 article = Article.objects.get(pk=2)
 article.delete() # 끝!
 ```
+
+
+
+
+
+## 요청 처리하기 - POST
+
+### POST
+
+Database를 조작하는 요청의 경우에 사용하자!!
+
+#### POST는 어떻게 사용할까?
+
+```html
+<form method="POST">
+</form>
+```
+
+##### Django에서는 POST 동작에서 `csrf_token`을 검사한다!
+
+```html
+<form method="POST">
+  {% csrf_token %}
+</form>
+```
+
+`csrf_token` : hidden type의 input tag가 생성!
+
+
+##### POST 주머니
+
+```python
+def create(request):
+    request.POST.get('name')
+```
+
+### GET
+
+정보를 조회하는 경우에 사용하자!!
+
+
+## 관리자 페이지
+
+```shell
+python manage.py createsuperuser
+```
