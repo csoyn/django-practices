@@ -3,6 +3,7 @@
 {% block content %}
 <h2>Edit Article</h2>
 
+{% comment %} <form action="{% url 'articles:update' article.pk %}" method="POST"> {% endcomment %}
 <form method="POST">
   {% csrf_token %}
   <div class="mb-3">

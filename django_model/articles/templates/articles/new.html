@@ -3,6 +3,7 @@
 {% block content %}
 <h2>New Article</h2>
 
+{% comment %} <form action="{% url 'articles:create' %}" method="POST"> {% endcomment %}
 <form method="POST">
   {% csrf_token %}
   <div class="mb-3">
