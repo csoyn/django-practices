@@ -26,71 +26,108 @@ def detail(request, pk):
 
 
 # CREATE (new & create)
-def new(request):
-    return render(request, 'articles/new.html')
+# def new(request):
+#     return render(request, 'articles/new.html')
 
 
-def create(request):
-    '''
-    form에서 넘어온 데이터를 DB에 반영 (생성)
-    '''
-    # Database 조작 => GET X : GET은 데이터 조회
-    # title = request.GET.get('title')
-    # content = request.GET.get('content')
+# def create(request):
+    # '''
+    # form에서 넘어온 데이터를 DB에 반영 (생성)
+    # '''
+    # # Database 조작 => GET X : GET은 데이터 조회
+    # # title = request.GET.get('title')
+    # # content = request.GET.get('content')
     
-    title = request.POST.get('title')
-    content = request.POST.get('content')
+    # title = request.POST.get('title')
+    # content = request.POST.get('content')
     
-    #1.
-    # article = Article()
-    # article.title = title
-    # article.content = content
+    # #1.
+    # # article = Article()
+    # # article.title = title
+    # # article.content = content
+    # # article.save()
+
+    # #2. 
+    # article = Article(title=title, content=content)
     # article.save()
 
-    #2. 
-    article = Article(title=title, content=content)
-    article.save()
+    # #3.
+    # # Article.objects.create(title=title, content=content)
 
-    #3.
-    # Article.objects.create(title=title, content=content)
+    # # 굳이? 새로운 html을 랜더해야할까?
+    # # return render(request, 'articles/create.html')
+    # # 그냥 게시판으로 이동시켜주자!
+    # return redirect('articles:index')
 
-    # 굳이? 새로운 html을 랜더해야할까?
-    # return render(request, 'articles/create.html')
-    # 그냥 게시판으로 이동시켜주자!
-    return redirect('articles:index')
+    # Method로 동작 구분하기
+
+# Create (new + create)
+def create(request):
+    if request.method == 'POST':
+        # DB에 저장
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+
+        article = Article(title=title, content=content)
+        article.save()
+        return redirect('articles:index')
+    else:
+        # GET 요청 : Template을 랜더
+        return render(request, 'articles/new.html')
 
 
 # UPDATE (edit & update)
-def edit(request, pk):
-    '''
-    게시물 수정하는 페이지를 랜더하는 함수
-    => 수정하는 페이지에서 기존에 작성된 게시물 내용(article)을 보여준다!
-    '''
-    # 어떤 게시물 수정할래? => pk!
-    article = Article.objects.get(pk=pk)
-    context = {
-        'article': article
-    }
-    return render(request, 'articles/edit.html', context)
+# def edit(request, pk):
+#     '''
+#     게시물 수정하는 페이지를 랜더하는 함수
+#     => 수정하는 페이지에서 기존에 작성된 게시물 내용(article)을 보여준다!
+#     '''
+#     # 어떤 게시물 수정할래? => pk!
+#     article = Article.objects.get(pk=pk)
+#     context = {
+#         'article': article
+#     }
+#     return render(request, 'articles/edit.html', context)
     
 
+# def update(request, pk):
+#     '''
+#     form에서 넘어온 데이터를 DB에 반영 (수정)
+#     '''
+#     article = Article.objects.get(pk=pk)
+
+#     title = request.POST.get('title')
+#     content = request.POST.get('content')
+
+#     article.title = title
+#     article.content = content
+#     article.save()
+#     # 굳이 update라는 탬플릿을 랜더할 필요가 있을까?
+#     # return render(request, 'articles/update.html')
+
+#     # 그냥 해당 게시물을 다시 보여준다!
+#     return redirect('articles:detail', article.pk)
+
+
+# UPDATE (edit + update)
 def update(request, pk):
-    '''
-    form에서 넘어온 데이터를 DB에 반영 (수정)
-    '''
     article = Article.objects.get(pk=pk)
 
-    title = request.POST.get('title')
-    content = request.POST.get('content')
+    if request.method == 'POST':
+        # POST : DB에 수정내역 반영
+        title = request.POST.get('title')
+        content = request.POST.get('content')
 
-    article.title = title
-    article.content = content
-    article.save()
-    # 굳이 update라는 탬플릿을 랜더할 필요가 있을까?
-    # return render(request, 'articles/update.html')
-
-    # 그냥 해당 게시물을 다시 보여준다!
-    return redirect('articles:detail', article.pk)
+        article.title = title
+        article.content = content
+        article.save()
+        return redirect('articles:detail', article.pk)
+    else:
+        # GET : 수정하는 template을 랜더
+        context = {
+            'article': article
+        }
+        return render(request, 'articles/edit.html', context)
 
 
 # DELETE

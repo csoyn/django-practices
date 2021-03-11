@@ -9,7 +9,7 @@
 <p>{{ article.updated_at }}</p>
 <hr>
 {% comment %} url '앱이름:별명' variable-routing변수 {% endcomment %}
-<p><a href="{% url 'articles:edit' article.pk %}">✏</a></p>
+<p><a href="{% url 'articles:update' article.pk %}">✏</a></p>
 <p><a href="{% url 'articles:delete' article.pk %}">🗑</a></p>
 <form action="{% url 'articles:delete' article.pk %}" method="POST">
   {% csrf_token %}

@@ -3,7 +3,7 @@
 {% block content %}
 <h2>New Article</h2>
 
-<form action="{% url 'articles:create' %}" method="POST">
+<form method="POST">
   {% csrf_token %}
   <div class="mb-3">
     <label for="title" class="form-label">제목</label>
