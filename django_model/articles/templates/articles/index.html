@@ -1,6 +1,22 @@
-<a href="{% url 'articles:new' %}">NEW</a>
+{% extends 'base.html' %}
 
-{% for article in articles %}
-  <h2>{{ article.title }}</h2>
-  <p>{{ article.content }}</p>
-{% endfor %}
+{% block content %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">제목</th>
+        <th scope="col">작성 시간</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for article in articles %}
+        <tr>
+          <th scope="row">{{ article.pk }}</th>
+          <td><a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a></td>
+          <td>{{ article.created_at }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
