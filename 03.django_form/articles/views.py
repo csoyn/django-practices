@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.views.decorators.http import require_http_methods
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article
 from .forms import ArticleForm
 
@@ -17,7 +18,8 @@ def detail(request, pk):
     """
     특정 게시물(pk)의 상세 내용을 보여주는 탬플릿을 랜더하는 함수
     """
-    article = Article.objects.get(pk=pk)
+    # article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     context = {
         'article': article,
     }
@@ -47,13 +49,15 @@ def create(request):
     return render(request, 'articles/new.html', context)
 
 
+@require_http_methods(['GET', 'POST'])
 def update(request, pk):
     """
     GET : 특정 게시글(pk)을 수정하는 탬플릿을 랜더
     POST : DB에 특정 게시글(pk) 정보 수정
     """
     # 어떤 게시물? pk로 찾기!
-    article = Article.objects.get(pk=pk)
+    # article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
 
     if request.method == 'POST':
         # POST : DB 특정 게시글 정보 수정
@@ -78,7 +82,9 @@ def delete(request, pk):
     """
     특정 게시물(pk)을 DB에서 삭제
     """
-    article = Article.objects.get(pk=pk)
+    # article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
+
     if request.method == 'POST':
         article.delete()
         return redirect('articles:index')
