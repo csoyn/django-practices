@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{ articles }}
+<a href="{% url 'articles:create' %}">새 글 쓰기</a>
+
+<hr>
+
+{% for article in articles %}
+<p>
+  <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
+</p>
+{% endfor %}
 {% endblock content %}

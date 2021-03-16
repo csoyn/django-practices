@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{{ article }}
+<h2>{{ article.title }}</h2>
+<p>{{ article.content }}</p>
+
+<a href="">수정</a>
+<a href="">삭제</a>
 {% endblock content %}

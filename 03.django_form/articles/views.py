@@ -34,6 +34,7 @@ def create(request):
 
     if request.method == 'POST':
         form = ArticleForm(request.POST)
+        # 유효성 검사
         if form.is_valid():
             article = form.save()
             return redirect('articles:detail', article.pk)

@@ -22,9 +22,32 @@ from .models import Article
 
 # ModelForm : 이미 정의한 Model과 연관있는 Form
 class ArticleForm(forms.ModelForm):
+    title = forms.CharField(
+        label='제목',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
+    content = forms.CharField(
+        label='내용',
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
+
     class Meta:
         # Model 연결
         model = Article
         # fields = ('title', )
         # exclude = ('content', )
         fields = '__all__'
+        # widgets = {
+        #     'title': forms.TextInput(attrs={
+        #         'class': 'form-control',
+        #         'placeholder': '제목을 입력해주세요!'
+        #     })
+        # }
