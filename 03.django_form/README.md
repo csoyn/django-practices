@@ -78,25 +78,31 @@ if form.is_valid():
 **url은 하나만 쓰고 method로 동작을 구분!**
 
 ```python
-if request.method == 'POST':
-    # request.POST 정보가 들어가있는 form 인스턴스를 생성
-    form = ArticleForm(request.POST)
-    # 유효성 검사
-    if form.is_valid():
-        # 검사를 통과하면 저장
-        article = form.save()
-        return redirect('articles:detail', article.pk)
-else:
-    # ModelForm Class로 form 인스턴스를 생성
-    form = ArticleForm()
+def create(request):
+    """
+    GET : 새 게시글을 작성하는 탬플릿을 랜더
+    POST : DB에 새 게시글 정보 저장(생성)
+    """
+    if request.method == 'POST':
+        # request.POST 정보가 들어가있는 form 인스턴스를 생성
+        form = ArticleForm(request.POST)
+        # 유효성 검사
+        if form.is_valid():
+            # 검사를 통과하면 저장
+            article = form.save()
+            return redirect('articles:detail', article.pk)
+    else:
+        # ModelForm Class로 form 인스턴스를 생성
+        form = ArticleForm()
 
-# 탬플릿을 랜더 (유효성 검사를 통과하지 못한 경우)
-# 유효성 검사에서 사용한 form 인스턴스를 재사용하기 때문에
-# 유효성 검사를 통과하지 못했을때 기존 내용을 보존할 수 있다!
-context = {
-    'form': form
-}
-return render(request, 'articles/new.html', context)
+    # 탬플릿을 랜더 (유효성 검사를 통과하지 못한 경우)
+    # 유효성 검사에서 사용한 form 인스턴스를 재사용하기 때문에
+    # 유효성 검사를 통과하지 못했을때 기존 내용을 보존할 수 있다!
+    context = {
+        'form': form
+    }
+    return render(request, 'articles/new.html', context)
+
 ```
 
 
