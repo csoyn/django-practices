@@ -38,12 +38,48 @@ def create(request):
         if form.is_valid():
             article = form.save()
             return redirect('articles:detail', article.pk)
-        return redirect('articles:create')
     else:
         form = ArticleForm()
-        context = {
-            'form': form
-        }
-        return render(request, 'articles/new.html', context)
 
-    
+    context = {
+        'form': form
+    }
+    return render(request, 'articles/new.html', context)
+
+
+def update(request, pk):
+    """
+    GET : 특정 게시글(pk)을 수정하는 탬플릿을 랜더
+    POST : DB에 특정 게시글(pk) 정보 수정
+    """
+    # 어떤 게시물? pk로 찾기!
+    article = Article.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        # POST : DB 특정 게시글 정보 수정
+        # ModelForm 클래스로 인스턴스를 생성!
+        form = ArticleForm(request.POST, instance=article)
+
+        if form.is_valid():
+            form.save()
+            return redirect('articles:detail', pk)
+    else:
+        # forms 를 사용! instance에 article 인스턴스를 넘겨준다!
+        # 생성된 form 인스턴스에는 article에 대한 정보가 담긴다!
+        form = ArticleForm(instance=article)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'articles/edit.html', context)
+
+
+def delete(request, pk):
+    """
+    특정 게시물(pk)을 DB에서 삭제
+    """
+    article = Article.objects.get(pk=pk)
+    if request.method == 'POST':
+        article.delete()
+        return redirect('articles:index')
+    return redirect('articles:detail', pk)

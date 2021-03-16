@@ -4,6 +4,10 @@
 <h2>{{ article.title }}</h2>
 <p>{{ article.content }}</p>
 
-<a href="">수정</a>
-<a href="">삭제</a>
+<a href="{% url 'articles:update' article.pk %}">수정</a>
+<a href="{% url 'articles:delete' article.pk %}">GET으로 삭제시도</a>
+<form action="{% url 'articles:delete' article.pk %}" method="POST">
+  {% csrf_token %}
+  <button>POST로 삭제</button>
+</form>
 {% endblock content %}
