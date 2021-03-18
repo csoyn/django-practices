@@ -1,0 +1,12 @@
+.card-img-box-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card-img-box {
+  height: 14rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}

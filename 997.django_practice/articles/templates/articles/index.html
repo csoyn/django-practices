@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'articles/css/style.css' %}">
+{% endblock css %}
+
+{% block content %}
+{% for article in articles %}
+  <div class="row justify-content-center my-5">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <div class="card-img-box-container">
+          <div class="card-img-box">
+            {% if article.image %}
+              <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.image }}">
+            {% else %}
+              <!-- <img src="https://picsum.photos/200/200" class="card-img-top" alt="sample-image"> -->
+              <img src="{% static 'articles/images/bonobono.jpg' %}" class="card-img-top" alt="sample-image">
+            {% endif %}
+          </div>
+        </div>
+        <hr>
+        <h5 class="card-title">{{ article.title }}</h5>
+        <p class="card-text">{{ article.content }}</p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock content %}

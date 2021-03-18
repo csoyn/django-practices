@@ -1,0 +1,7 @@
+{{ article.title }}
+{{ article.image }}
+
+<form action="{% url 'articles:delete' article.pk %}" method="POST">
+  {% csrf_token %}
+  <button>삭제</button>
+</form>
