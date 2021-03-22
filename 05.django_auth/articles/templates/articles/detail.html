@@ -3,4 +3,9 @@
 {% block content %}
 {{ article.title }}
 {{ article.content }}
+
+<form action="{% url 'articles:delete' article.pk %}" method="POST">
+  {% csrf_token %}
+  <button>삭제</button>
+</form>
 {% endblock content %}

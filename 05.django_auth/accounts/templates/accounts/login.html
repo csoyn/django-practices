@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% comment %} action이 생략이 되었기 때문에 next 파라미터를 사용할 수 있다. {% endcomment %}
 <form method="POST">
   {% csrf_token %}
   {{ form.as_p }}
