@@ -1,8 +1,16 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm, 
+    UserCreationForm,
+    PasswordChangeForm
+)
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from .forms import CustomUserChangeForm
+
 
 # DB 유저 세션 생성(CREATE)
 def login(request):
@@ -64,3 +72,38 @@ def delete(request):
     if request.user.is_authenticated:
         request.user.delete()
     return redirect('accounts:login')
+
+
+# DB 유저 정보 수정(UPDATE)
+@login_required
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:index')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+        context = {
+            'form': form
+        }
+        return render(request, 'accounts/update.html', context)
+
+
+# 비밀번호 수정(UPDATE)
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            # 비밀 번호 수정 => 세션이 무효!
+            user = form.save()
+            # 세션 UPDATE!
+            update_session_auth_hash(request, user)
+            return redirect('articles:index')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/change_password.html', context)
