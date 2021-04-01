@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<h2>
+  {{ person.username }}
+  {% if user != person %}
+      {% if user in person.followers.all %}
+        <a href="{% url 'accounts:follow' person.pk %}" class="btn btn-outline-primary">
+          팔로잉  
+        </a>
+      {% else %}
+        <a href="{% url 'accounts:follow' person.pk %}" class="btn btn-primary">  
+          팔로우
+        </a>
+      {% endif %}
+  {% endif %}
+</h2> 
+
+
+<ul class="d-flex justify-content-evenly list-unstyled">
+  <li class="">
+    <a class="text-decoration-none text-dark" href="">게시물 {{ person.article_set.all|length }}</a>
+  </li>
+  <li>
+    <a class="text-decoration-none text-dark" href="">팔로워 {{ person.followers.all|length }}</a>
+  </li>
+  <li>
+    <a class="text-decoration-none text-dark" href="">팔로잉 {{ person.followings.all|length }}</a>
+  </li>
+</ul>
+
+<hr>
+<p>작성한 게시글</p>
+<p>{{ person.article_set.all }}</p>
+
+
+
+{% endblock content %}
